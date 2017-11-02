@@ -7,3 +7,11 @@ img{
   max-width: 100%;
   height: auto;
 }
+
+* { /* access any element in the page*/
+  box-sizing: border-box;  /*adjusts the width to be in the row*/
+}
+
+a {
+  color: $mainOrange;
+}
