@@ -5,8 +5,16 @@
     margin-right: -65px; /*add space betweem columns*/
   }
 
+  &--gutters-large {
+    margin-right: -100px; /*add space betweem columns*/
+  }
+
   &--gutters > div { /*Only add space for bellow elements*/
     padding-right: 65px; /*add space betweem columns*/
+  }
+
+  &--gutters-large > div { /*Only add space for bellow elements*/
+    padding-right: 100px; /*add space betweem columns*/
   }
 
   &__b-margin-until-medium{
@@ -35,6 +43,11 @@
 
     &__medium-8--smaller{
       width: 63%;
+    }
+
+    &__medium-6 {
+      float: left;
+      width: 50%;
     }
   }
 

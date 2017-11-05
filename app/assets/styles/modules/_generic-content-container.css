@@ -2,7 +2,8 @@
 
   p {
     line-height: 1.65;
-    margin: 1.8rem 0; /*Vertical x Horizontal*/
+    margin: 0 0 1.8rem 0; /*top right bottom left*/
+    font-weight: 300;
 
     @mixin atSmall {
       font-size: 1.125rem;
