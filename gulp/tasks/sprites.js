@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
 svgSprite = require('gulp-svg-sprite'), //package for creating sprites
-rename = require('gulp-rename'), //package that rename a file
+rename = require('gulp-rename'), //package that renames a file
 del = require('del'); //package that delete folders
 
 var config = { //Variable to config svgSprite
