@@ -11109,23 +11109,17 @@ var _StickyHeader = __webpack_require__(5);
 
 var _StickyHeader2 = _interopRequireDefault(_StickyHeader);
 
-<<<<<<< HEAD
-=======
 var _Modal = __webpack_require__(7);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
->>>>>>> create-modal
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mobileMenu = new _MobileMenu2.default();
 new _RevealOnScroll2.default((0, _jquery2.default)(".feature-item"), "85%");
 new _RevealOnScroll2.default((0, _jquery2.default)(".testimonial"), "60%");
 var stickyHeader = new _StickyHeader2.default();
-<<<<<<< HEAD
-=======
 var modal = new _Modal2.default();
->>>>>>> create-modal
 
 /***/ }),
 /* 3 */
@@ -11707,8 +11701,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 
-<<<<<<< HEAD
-=======
 /***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -11777,6 +11769,5 @@ var Modal = function () {
 
 exports.default = Modal;
 
->>>>>>> create-modal
 /***/ })
 /******/ ]);
