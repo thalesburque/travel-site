@@ -1,44 +1,63 @@
 var gulp = require('gulp'),
-svgSprite = require('gulp-svg-sprite'), //package for creating sprites
-rename = require('gulp-rename'), //package that renames a file
-del = require('del'); //package that delete folders
+svgSprite = require('gulp-svg-sprite'),
+rename = require('gulp-rename'),
+del = require('del'),
+svg2png = require('gulp-svg2png');
 
-var config = { //Variable to config svgSprite
-  mode: { //determines a mode for svgSprite
-    css: { // creates a folder with a svg file
-      sprite: 'sprite.svg', //name the file as sprite.svg
-      render: { //generates css
-        css: { //Specifies to be only css instead sass or ...
-          template: './gulp/templates/sprite.css' //Provides information about any icon
+var config = {
+  shape: {
+    spacing: {
+      padding: 1
+    }
+  },
+  mode: {
+    css: {
+      variables: {
+        replaceSvgWithPng: function() {
+          return function(sprite, render) {
+            return render(sprite).split('.svg').join('.png');
+          }
+        }
+      },
+      sprite: 'sprite.svg',
+      render: {
+        css: {
+          template: './gulp/templates/sprite.css'
         }
       }
     }
   }
 }
 
-gulp.task('beginClean', function() { //function that deletes folders containing old sprite files
-    return del(['./app/temp/sprite', './app/assets/images/sprites']);
+gulp.task('beginClean', function() {
+  return del(['./app/temp/sprite', './app/assets/images/sprites']);
 });
 
-gulp.task('createSprite', ['beginClean'], function() { //create a sprite
-  return gulp.src('./app/assets/images/icons/**/*.svg') //Import from this folder
-    .pipe(svgSprite(config)) //Put all icons in a sigle svg file and create the css file
-    .pipe(gulp.dest('./app/temp/sprite/')); //to this new folder
+gulp.task('createSprite', ['beginClean'], function() {
+  return gulp.src('./app/assets/images/icons/**/*.svg')
+    .pipe(svgSprite(config))
+    .pipe(gulp.dest('./app/temp/sprite/'));
 });
 
-gulp.task('copySpriteGraphic', ['createSprite'], function() { //move the svg image to root image folder
-  return gulp.src('./app/temp/sprite/css/**/*.svg')
+gulp.task('createPngCopy', ['createSprite'], function() {
+  return gulp.src('./app/temp/sprite/css/*.svg')
+    .pipe(svg2png())
+    .pipe(gulp.dest('./app/temp/sprite/css'));
+});
+
+gulp.task('copySpriteGraphic', ['createPngCopy'], function() {
+  return gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
     .pipe(gulp.dest('./app/assets/images/sprites'));
 });
 
-gulp.task('copySpriteCSS', ['createSprite'], function() { // Copy the css sprite file to the main style folder
+gulp.task('copySpriteCSS', ['createSprite'], function() {
   return gulp.src('./app/temp/sprite/css/*.css')
-    .pipe(rename('_sprite.css')) //rename the css file to copy into the root folder
+    .pipe(rename('_sprite.css'))
     .pipe(gulp.dest('./app/assets/styles/modules'));
 });
 
-gulp.task('endClean', ['copySpriteGraphic', 'copySpriteCSS'], function () {
+gulp.task('endClean', ['copySpriteGraphic', 'copySpriteCSS'], function() {
   return del('./app/temp/sprite');
 });
 
-gulp.task('icons', ['beginClean', 'createSprite', 'copySpriteGraphic', 'copySpriteCSS', 'endClean']); //run all tasks listed
+gulp.task('icons', ['beginClean', 'createSprite', 'createPngCopy', 'copySpriteGraphic', 'copySpriteCSS', 'endClean']);
